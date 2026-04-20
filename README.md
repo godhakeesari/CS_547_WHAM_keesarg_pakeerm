@@ -139,7 +139,6 @@ export PYTHONPATH=/content/WHAM/third-party/ViTPose:/content/WHAM
   --estimate_local_only
 ```
 
-
 ## Experiment 1 Results
 ### Successfully Reproduced
 - Official demo execution
@@ -151,13 +150,16 @@ export PYTHONPATH=/content/WHAM/third-party/ViTPose:/content/WHAM
 ## Result Samples
 
 ### Official Example
-![Download Output Video](results/experiment1_img9732.mp4)
+![Preview](results/img9732_output.png)  
+[Watch Video on Google Drive](https://drive.google.com/file/d/1MCOmfWvCB_2Bg8os-Mp_kdc7wDYb85pS/view?usp=sharing)
 
 ### Drone Example
-![Download Output Video](results/experiment1_drone.mp4)
+![Preview](results/drone_output.png)  
+[Watch Video on Google Drive](https://drive.google.com/file/d/1OwTIs9rAV0onb9yRqv3CSU_si5qQyxNt/view?usp=sharing)
 
 ### Custom Example
-![Download Output Video](results/experiment1_test-3.mp4)
+![Preview](results/test-3.png)  
+[Watch Video on Google Drive](https://drive.google.com/file/d/1o-ioQLW72zmaeQH6FIL6UjAB65U516rY/view?usp=sharing)
 
 ### Comparison With Original Paper
 | Category                 | Paper     | Our Result |
