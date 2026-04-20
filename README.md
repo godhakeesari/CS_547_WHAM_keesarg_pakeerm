@@ -1,4 +1,181 @@
-# WHAM: Reconstructing World-grounded Humans with Accurate 3D Motion
+# CS_547_WHAM_keesarg_pakeerm
+
+This repository is a **fork created for the CS 547 Final Research Project at SUNY Polytechnic Institute** based on the official WHAM repository.
+
+Original Repository: https://github.com/yohanshin/WHAM  
+Paper: **WHAM: Reconstructing World-grounded Humans with Accurate 3D Motion** (CVPR 2024)  
+https://arxiv.org/abs/2312.07531
+
+---
+
+## Team Members
+
+- Godha Harshitha Keesari
+- Sushmitha Yandapally
+
+---
+
+## Project Objective
+
+The goal of this project is to reproduce and analyze the WHAM framework for monocular 3D human motion reconstruction.
+
+WHAM estimates temporally consistent 3D human motion and body mesh from a single RGB video using:
+
+- ViTPose (2D keypoint detection)
+- Feature extraction backbone
+- SMPL body model
+- Temporal motion modeling
+- DPVO / SLAM camera motion estimation
+
+This repository is used for:
+
+- **Experiment 1:** Replication of original paper results
+- **Experiment 2:** Modified experiments / new data testing
+
+---
+
+## Brief Modifications Made to Original Repository
+
+The following practical changes were made for this CS 547 project:
+
+- Added Google Colab compatible setup instructions  
+- Built a custom Conda environment for dependency compatibility  
+- Added commands for running custom user videos  
+- Added Experiment 1 documentation and results  
+- Added troubleshooting notes for reproducibility  
+
+## Environment Rebuilt From Scratch
+
+The original WHAM Colab environment was not directly reproducible in the current runtime, so a clean custom environment was created manually.
+
+No core WHAM model source code was modified for Experiment 1.
+
+---
+
+## Additional Software / Environment Setup
+
+Experiments were executed in **Google Colab** with GPU acceleration.
+
+### Hardware
+
+- GPU: Tesla T4
+- Runtime: Google Colab
+- OS: Linux
+
+### Software
+
+- Python: 3.9, PyTorch: 1.11, CUDA: 11.3, NumPy: 1.23.5
+
+---
+
+## Custom Environment Setup (Actual Working Setup)
+
+### Install Miniconda
+
+```bash
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh -b -p /usr/local/miniconda
+```
+
+### Create Environment
+
+```bash
+/usr/local/miniconda/bin/conda create -n wham python=3.9 -y
+```
+
+### Runtime Variables
+```bash
+export MPLBACKEND=Agg
+export PYTHONPATH=/content/WHAM/third-party/ViTPose:/content/WHAM
+```
+
+## Dataset Information
+### Experiment 1
+
+No new external dataset was used.
+
+Experiment 1 used official sample videos included with the repository:
+```text
+examples/IMG_9732.mov
+examples/drone_video.mp4
+examples/test-3.mp4
+```
+### i. Official Example Video
+```bash
+cd /content/WHAM
+export MPLBACKEND=Agg
+export PYTHONPATH=/content/WHAM/third-party/ViTPose:/content/WHAM
+/usr/local/miniconda/envs/wham/bin/python demo.py \
+  --video examples/IMG_9732.mov \
+  --visualize \
+  --estimate_local_only
+``` 
+
+### ii. Drone Example
+```bash
+cd /content/WHAM
+export MPLBACKEND=Agg
+export PYTHONPATH=/content/WHAM/third-party/ViTPose:/content/WHAM
+/usr/local/miniconda/envs/wham/bin/python demo.py \
+  --video examples/drone_video.mp4 \
+  --calib examples/drone_calib.txt \
+  --visualize \
+  --estimate_local_only
+```
+### iii. Custom Video
+
+Place your new video inside:
+
+examples/
+
+Then run:
+```bash
+cd /content/WHAM
+export MPLBACKEND=Agg
+export PYTHONPATH=/content/WHAM/third-party/ViTPose:/content/WHAM
+/usr/local/miniconda/envs/wham/bin/python demo.py \
+  --video examples/test-3.mp4 \
+  --visualize \
+  --estimate_local_only
+```
+
+
+## Experiment 1 Results
+### Successfully Reproduced
+- Official demo execution
+- Human mesh reconstruction from monocular video
+- Drone camera example
+- Custom unseen video testing
+- Output video generation
+
+### Result Samples
+
+- Official Example: 
+[IMG_9732 Output Video](results/experiment1_img9732.mp4)
+- Drone Example: 
+[Drone Output Video](results/experiment1_drone.mp4)
+- Custom Example: 
+[Custom Video Result](results/experiment1_test-3.mp4)
+
+### Comparison With Original Paper
+| Category                 | Paper     | Our Result |
+| ------------------------ | --------- | ---------- |
+| Official Demo            | Yes       | Yes        |
+| Human Reconstruction     | Yes       | Yes        |
+| New Custom Video         | Not Shown | Yes        |
+| World-grounded DPVO Mode | Yes       | Partial    |
+| Local Coordinate Mode    | Yes       | Yes        |
+
+### Challenges Faced During Reproduction
+
+The original environment was not directly portable, so several issues were solved manually:
+
+- Conda not available in Colab by default
+- PyTorch / NumPy incompatibilities
+- MMCV installation mismatches
+- Matplotlib backend errors
+- Missing FFMPEG writer plugin
+- DPVO dependency limitations# WHAM: Reconstructing World-grounded Humans with Accurate 3D Motion
 
 <a href="https://pytorch.org/get-started/locally/"><img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white"></a> [![report](https://img.shields.io/badge/arxiv-report-red)](https://arxiv.org/abs/2312.07531) <a href="https://wham.is.tue.mpg.de/"><img alt="Project" src="https://img.shields.io/badge/-Project%20Page-lightgrey?logo=Google%20Chrome&color=informational&logoColor=white"></a> [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1ysUtGSwidTQIdBQRhq0hj63KbseFujkn?usp=sharing)
  [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/wham-reconstructing-world-grounded-humans/3d-human-pose-estimation-on-3dpw)](https://paperswithcode.com/sota/3d-human-pose-estimation-on-3dpw?p=wham-reconstructing-world-grounded-humans) [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/wham-reconstructing-world-grounded-humans/3d-human-pose-estimation-on-emdb)](https://paperswithcode.com/sota/3d-human-pose-estimation-on-emdb?p=wham-reconstructing-world-grounded-humans)
