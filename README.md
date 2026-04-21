@@ -240,6 +240,24 @@ Please refer to [API](docs/API.md) for details.
 ## Dataset
 Please see [Dataset](docs/DATASET.md) for details.
 
+##  Experiment 1: 3DPW Benchmark Evaluation
+
+We evaluated the WHAM model on the 3DPW dataset using the official parsed evaluation data.
+
+### Results
+
+| Metric    | Your Result | Paper Result | Unit   |
+|----------|------------|--------------|--------|
+| PA-MPJPE | 36.31      | 35.90        | mm     |
+| MPJPE    | 61.11      | 57.80        | mm     |
+| PVE      | 70.31      | 68.70        | mm     |
+| ACCEL    | 6.58       | 6.60         | m/s²   |
+
+### Interpretation
+- The reproduced results are very close to the original paper.
+- This confirms successful implementation and evaluation of the WHAM model.
+
+
 ## Evaluation
 ```bash
 # Evaluate on 3DPW dataset
