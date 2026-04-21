@@ -171,10 +171,6 @@ export PYTHONPATH=/content/WHAM/third-party/ViTPose:/content/WHAM
 | Local Coordinate Mode    | Yes       | Yes        |
 
 
-### Conclusion
-
-The reproduced results are very close to the values reported in the original WHAM paper, indicating that the implementation and evaluation pipeline were set up correctly. The model demonstrates accurate 3D pose estimation (low MPJPE and PVE) and smooth motion reconstruction (low ACCEL). Overall, this confirms successful reproduction of WHAM’s performance on the 3DPW dataset.
-
 
 
 ### Challenges Faced During Reproduction
@@ -259,6 +255,15 @@ We evaluated the WHAM model on the 3DPW dataset using the official parsed evalua
 | MPJPE    | 61.11      | 57.80        | mm     |
 | PVE      | 70.31      | 68.70        | mm     |
 | ACCEL    | 6.58       | 6.60         | m/s²   |
+
+
+
+### Conclusion
+
+The reproduced results are very close to the values reported in the original WHAM paper, indicating that the implementation and evaluation pipeline were set up correctly. The model demonstrates accurate 3D pose estimation (low MPJPE and PVE) and smooth motion reconstruction (low ACCEL). Overall, this confirms successful reproduction of WHAM’s performance on the 3DPW dataset.
+
+
+
 
 ### Interpretation
 - The reproduced results are very close to the original paper.
