@@ -258,7 +258,7 @@ We evaluated the WHAM model on the 3DPW dataset using the official parsed evalua
 
 
 
-### Conclusion
+### Analysis of Results
 
 The reproduced results are very close to the values reported in the original WHAM paper, indicating that the implementation and evaluation pipeline were set up correctly. The model demonstrates accurate 3D pose estimation (low MPJPE and PVE) and smooth motion reconstruction (low ACCEL). Overall, this confirms successful reproduction of WHAM’s performance on the 3DPW dataset.
 
