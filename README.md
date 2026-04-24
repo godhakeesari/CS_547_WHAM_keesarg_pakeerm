@@ -181,6 +181,29 @@ We evaluated the WHAM model on the 3DPW dataset using the official parsed evalua
 | PVE      | 70.31      | 68.70        | mm     |
 | ACCEL    | 6.58       | 6.60         | m/s²   |
 
+## Experiment 1 
+### 3DPW Dataset Benchmark Evaluation Results
+We evaluated the WHAM model on the 3DPW dataset using the official parsed evaluation data.
+
+| Metric   | Our Result | Paper Result | Unit   |
+|----------|------------|--------------|--------|
+| PA-MPJPE | 36.31      | 35.90        | mm     |
+| MPJPE    | 61.11      | 57.80        | mm     |
+| PVE      | 70.31      | 68.70        | mm     |
+| ACCEL    | 6.58       | 6.60         | m/s²   |
+
+### RICH Dataset Benchmark Evaluation Results
+We evaluated the pretrained WHAM model on the RICH benchmark dataset using the official evaluation script provided in the WHAM repository.
+
+| Metric   | Paper Result – (ViT) | Our Result     |
+| -------- |----------------------|----------------|
+| PA-MPJPE |                44.3  | 44.3117        |
+| MPJPE    |                80.0  | 80.0457        |
+| PVE      |                91.2  | 91.1682        |
+| Accel    |                5.3   | 5.2933         |
+
+[Datasets Used](https://drive.google.com/drive/folders/1ZbmwAkSY72rAq0ROEUx_ulFag6Xcck5l?usp=sharing)
+
 
 ### Analysis of Results
 
