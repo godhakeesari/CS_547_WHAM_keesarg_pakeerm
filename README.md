@@ -244,13 +244,6 @@ We evaluated the WHAM model on the 3DPW dataset after applying temporal smoothin
 
 ### Analysis of experiment 2 
 
-| Metric   | Exp 1 Result | Exp 2 Result |
-|----------|--------------|--------------|
-| PA-MPJPE | 36.31        | 36.56        |
-| MPJPE    | 61.11        | 61.23        |
-| PVE      | 70.31        | 70.58        |
-| ACCEL    | 6.58         | 6.52         |
-
 The comparison between Experiment 1 (baseline) and Experiment 2 (with temporal smoothing) highlights the impact of the applied modification on model performance.
 
 The PA-MPJPE, MPJPE, and PVE values show a slight increase in Experiment 2.
