@@ -70,8 +70,6 @@ Python 3.9, CUDA GPU, Conda environment
 
 ---
 
-## Environment Setup
-
 ### A. Colab Setup: WHAM Demo / Local Coordinate Mode
 
 Used for demo inference without DPVO.
@@ -185,15 +183,6 @@ baseball pitch, bowling, walking, sports actions
 ### Custom Example
 ![Preview](results/test-3.png)  
 [Watch Video on Google Drive](https://drive.google.com/file/d/1o-ioQLW72zmaeQH6FIL6UjAB65U516rY/view?usp=sharing)
-
-### Comparison With Original Paper
-| Category                 | Paper     | Our Result |
-| ------------------------ | --------- | ---------- |
-| Official Demo            | Yes       | Yes        |
-| Human Reconstruction     | Yes       | Yes        |
-| New Custom Video         | Not Shown | Yes        |
-| World-grounded DPVO Mode | Yes       | Partial    |
-| Local Coordinate Mode    | Yes       | Yes        |
 
 ### 3DPW Dataset Benchmark Evaluation Results
 We evaluated the WHAM model on the 3DPW dataset using the official parsed evaluation data.
