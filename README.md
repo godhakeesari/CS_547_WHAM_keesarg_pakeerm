@@ -215,6 +215,52 @@ We evaluated the pretrained WHAM model on the RICH benchmark dataset using the o
 | PVE      |                94.4  | 89.8635        |
 | Accel    |                5.3   | 5.4385         |
 
+### EMDB Split 2 Results 
+We evaluated the pretrained WHAM model on the EMDB-2 dataset using the official evaluation pipeline.
+
+| Metric     | Paper Result (ViT) | Our Result |
+|------------|-------------------|------------|
+| PA-MPJPE   | 36.80             | 36.95      |
+| MPJPE      | 57.90             | 58.25      |
+| PVE        | 69.50             | 69.84      |
+| ACCEL      | 5.10              | 5.09       |
+| WA-MPJPE   | 132.00            | 132.55     |
+| W-MPJPE    | 336.00            | 337.72     |
+| RTE        | 3.80              | 3.82       |
+| JITTER     | 22.30             | 22.47      |
+| FS         | 5.20              | 5.24       |
+
+
+
+### 3DPW Dataset – Experiment 2 (Modified Method) Results
+We evaluated the WHAM model on the 3DPW dataset after applying temporal smoothing as part of Experiment 2.
+
+| Metric   | Exp 1 Result | Exp 2 Result |
+|----------|--------------|--------------|
+| PA-MPJPE | 36.31        | 36.56        |
+| MPJPE    | 61.11        | 61.23        |
+| PVE      | 70.31        | 70.58        |
+| ACCEL    | 6.58         | 6.52         |
+
+### Analysis of experiment 2 
+
+| Metric   | Exp 1 Result | Exp 2 Result |
+|----------|--------------|--------------|
+| PA-MPJPE | 36.31        | 36.56        |
+| MPJPE    | 61.11        | 61.23        |
+| PVE      | 70.31        | 70.58        |
+| ACCEL    | 6.58         | 6.52         |
+
+The comparison between Experiment 1 (baseline) and Experiment 2 (with temporal smoothing) highlights the impact of the applied modification on model performance.
+
+The PA-MPJPE, MPJPE, and PVE values show a slight increase in Experiment 2.
+This indicates a minor reduction in pose estimation accuracy after applying temporal smoothing.
+The ACCEL metric decreased from 6.58 to 6.52, which represents an improvement in motion smoothness.
+Lower ACCEL values indicate reduced frame-to-frame variation, meaning the predicted motion is more stable and less jittery.
+These results demonstrate a trade-off between spatial accuracy and temporal consistency:
+Experiment 1 provides slightly better pose precision
+Experiment 2 produces smoother and more realistic motion sequences
+
 ### Challenges Faced During Reproduction
 
 The original environment was not directly portable, so several issues were solved manually:
