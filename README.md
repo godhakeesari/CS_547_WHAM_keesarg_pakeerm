@@ -79,53 +79,57 @@ Python 3.9, CUDA GPU, Conda environment
 
 Used for demo inference without DPVO.
 
-bash
+```bash
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh -b -p /usr/local/miniconda
-
+```
+```bash
 /usr/local/miniconda/bin/conda create -n wham python=3.9 -y
-
+```
+```bash
 export MPLBACKEND=Agg
 export PYTHONPATH=/content/WHAM/third-party/ViTPose:/content/WHAM
-
+```
 Example run:
-
+```bash
 cd /content/WHAM
-
+```
+```bash
 /usr/local/miniconda/envs/wham/bin/python demo.py \
 --video examples/IMG_9732.mov \
 --visualize \
 --estimate_local_only
-
+```
 ### B. Linux Workstation Setup (Benchmarks + DPVO)
+```bash
 Conda
 source "$HOME/miniconda3/bin/activate" wham_dpvo
 export PYTHONPATH=$PWD/third-party/DPVO:$PWD/third-party/ViTPose:$PYTHONPATH
-
+```
 ## Dataset Instructions
 
 #### How to Run Experiments
 #### Experiment 1
 EMDB Split 1
-
+```bash
 python lib/eval/evaluate_emdb.py \
 -c configs/yamls/demo.yaml \
 --eval-set emdb \
 --eval-split 1
-
+```
 EMDB Split 2
-
+```bash
 python lib/eval/evaluate_emdb.py \
 -c configs/yamls/demo.yaml \
 --eval-set emdb \
 --eval-split 2
-
+```
 RICH
-
+```bash
 python -m lib.eval.evaluate_rich \
 --cfg configs/yamls/demo.yaml \
 TRAIN.CHECKPOINT checkpoints/wham_vit_w_3dpw.pth.tar
-
+```
 3DPW
 
 
@@ -143,7 +147,7 @@ dataset/PennAction/frames/
 dataset/PennAction/labels/
 
 Convert frames to video example:
-
+```bash
 mkdir -p dataset/PennAction/videos
 
 ffmpeg -y -framerate 30 \
@@ -154,8 +158,8 @@ python demo.py \
 --video dataset/PennAction/videos/0522.mp4 \
 --output_pth output/experiment2_penn_action/0522 \
 --visualize
-
-Summary of Results
+```
+### Summary of Results
 Experiment 1
 
 Successfully reproduced benchmark-quality results on:
