@@ -47,7 +47,6 @@ The following practical changes were made for this CS 547 project:
 ### Environment Rebuilt From Scratch
 
 The original WHAM Colab environment was not directly reproducible in the current runtime, so a clean custom environment was created manually.
----
 
 ## Environment Setup
 
