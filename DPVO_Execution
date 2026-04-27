@@ -1,0 +1,40 @@
+# Activate environment
+cd ~/projects/CS_547_WHAM_keesarg_pakeerm
+source "$HOME/miniconda3/bin/activate" wham_dpvo
+
+# Set paths
+export PYTHONPATH=$PWD/third-party/DPVO:$PWD/third-party/ViTPose:$PYTHONPATH
+
+# CUDA / build settings
+export CUDA_HOME="$CONDA_PREFIX"
+export PATH="$CUDA_HOME/bin:$PATH"
+export LD_LIBRARY_PATH="$CONDA_PREFIX/lib:$LD_LIBRARY_PATH"
+export CC="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-gcc"
+export CXX="$CONDA_PREFIX/bin/x86_64-conda-linux-gnu-g++"
+export TORCH_CUDA_ARCH_LIST="7.5"   # for T4 GPU
+
+# Install dependencies (only once)
+conda install -y -c nvidia cuda-nvcc=11.8 cuda-cudart=11.8
+conda install -y -c conda-forge gcc_linux-64=11 gxx_linux-64=11 eigen
+pip install ninja torch-scatter -f https://data.pyg.org/whl/torch-2.0.1+cu118.html
+
+# Build DPVO
+cd third-party/DPVO
+rm -rf build dpvo.egg-info
+pip install -e .
+
+# Go back to main folder
+cd ~/projects/CS_547_WHAM_keesarg_pakeerm
+
+# Run demo
+python demo.py \
+  --video examples/drone_video.mp4 \
+  --output_pth output/demo/drone_video
+
+# Visualize
+python demo.py \
+  --video examples/drone_video.mp4 \
+  --output_pth output/demo/drone_video \
+  --visualize
+
+
