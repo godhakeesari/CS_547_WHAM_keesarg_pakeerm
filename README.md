@@ -161,10 +161,11 @@ Experiment 1
 
 Successfully reproduced benchmark-quality results on:
 
-EMDB Split 1
-EMDB Split 2
-RICH
-3DPW
+- EMDB Split 1
+- EMDB Split 2
+- RICH
+- 3DPW
+
 Experiment 2
 
 WHAM successfully generated 3D reconstructions on unseen Penn Action videos including:
@@ -216,10 +217,14 @@ We evaluated the pretrained WHAM model on the RICH benchmark dataset using the o
 
 ### EMDB Results
 
+#### EMDB Split 1 Results
 
-
-### Analysis of Results
-
+| Metric   | Paper Result – (ViT) | Our Result     |
+| -------- |----------------------|----------------|
+| PA-MPJPE |                50.4  | 47.8979        |
+| MPJPE    |                79.7  | 76.8762        |
+| PVE      |                94.4  | 89.8635        |
+| Accel    |                5.3   | 5.4385         |
 
 ### Challenges Faced During Reproduction
 
