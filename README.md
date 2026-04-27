@@ -38,116 +38,139 @@ This repository is used for:
 
 The following practical changes were made for this CS 547 project:
 
-- Added Google Colab compatible setup instructions  
-- Built a custom Conda environment for dependency compatibility  
-- Added commands for running custom user videos  
-- Added Experiment 1 documentation and results  
-- Added troubleshooting notes for reproducibility  
+- Added Colab setup for demo execution
+- Added Linux GPU setup for benchmark evaluation
+- Added experiment scripts and benchmark notes
+- Added Penn Action dataset workflow
+- Added project documentation and results 
 
 ### Environment Rebuilt From Scratch
 
 The original WHAM Colab environment was not directly reproducible in the current runtime, so a clean custom environment was created manually.
 
-No core WHAM model source code was modified for Experiment 1.
+No core WHAM model source code was modified for Experiment 
+---
+
+## Environment Setup
+
+### Colab Demo Runs
+
+Used for demo inference in **local-coordinate mode (without DPVO)**.
+
+#### Recommended Setup
+
+Tesla T4, Google Colab, Linux
+
+Python: 3.9, PyTorch: 1.11, CUDA: 11.3, NumPy: 1.23.5
+
+### Benchmark Runs + DPVO
+
+Used Linux workstation with NVIDIA GPU for EMDB / RICH evaluations.
+
+### Recommended Setup
+
+Python 3.9, CUDA GPU, Conda environment
 
 ---
 
-## Additional Software / Environment Setup
+## Environment Setup
 
-Experiments were executed in **Google Colab** with GPU acceleration.
+### A. Colab Setup: WHAM Demo / Local Coordinate Mode
 
-### Hardware
-
-- GPU: Tesla T4
-- Runtime: Google Colab
-- OS: Linux
-
-### Software
-
-- Python: 3.9, PyTorch: 1.11, CUDA: 11.3, NumPy: 1.23.5
-
----
-
-## Custom Environment Setup (Actual Working Setup)
-
-### Install Miniconda
+Used for demo inference without DPVO.
 
 ```bash
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh -b -p /usr/local/miniconda
-```
 
-### Create Environment
-
-```bash
 /usr/local/miniconda/bin/conda create -n wham python=3.9 -y
-```
 
-### Runtime Variables
-```bash
 export MPLBACKEND=Agg
 export PYTHONPATH=/content/WHAM/third-party/ViTPose:/content/WHAM
-```
 
-## Dataset Information
-### Experiment 1
+Example run:
 
-No new external dataset was used.
-
-Experiment 1 used official sample videos included with the repository:
-```text
-examples/IMG_9732.mov
-examples/drone_video.mp4
-examples/test-3.mp4
-```
-### i. Official Example Video
-```bash
 cd /content/WHAM
-export MPLBACKEND=Agg
-export PYTHONPATH=/content/WHAM/third-party/ViTPose:/content/WHAM
+
 /usr/local/miniconda/envs/wham/bin/python demo.py \
-  --video examples/IMG_9732.mov \
-  --visualize \
-  --estimate_local_only
-``` 
+--video examples/IMG_9732.mov \
+--visualize \
+--estimate_local_only
 
-### ii. Drone Example
-```bash
-cd /content/WHAM
-export MPLBACKEND=Agg
-export PYTHONPATH=/content/WHAM/third-party/ViTPose:/content/WHAM
-/usr/local/miniconda/envs/wham/bin/python demo.py \
-  --video examples/drone_video.mp4 \
-  --calib examples/drone_calib.txt \
-  --visualize \
-  --estimate_local_only
-```
-### iii. Custom Video
+### B. Linux Workstation Setup (Benchmarks + DPVO)
+Conda
+source "$HOME/miniconda3/bin/activate" wham_dpvo
+export PYTHONPATH=$PWD/third-party/DPVO:$PWD/third-party/ViTPose:$PYTHONPATH
 
-Place your new video inside:
+## Dataset Instructions
 
-examples/
+#### How to Run Experiments
+#### Experiment 1
+EMDB Split 1
 
-Then run:
-```bash
-cd /content/WHAM
-export MPLBACKEND=Agg
-export PYTHONPATH=/content/WHAM/third-party/ViTPose:/content/WHAM
-/usr/local/miniconda/envs/wham/bin/python demo.py \
-  --video examples/test-3.mp4 \
-  --visualize \
-  --estimate_local_only
-```
+python lib/eval/evaluate_emdb.py \
+-c configs/yamls/demo.yaml \
+--eval-set emdb \
+--eval-split 1
+
+EMDB Split 2
+
+python lib/eval/evaluate_emdb.py \
+-c configs/yamls/demo.yaml \
+--eval-set emdb \
+--eval-split 2
+
+RICH
+
+python -m lib.eval.evaluate_rich \
+--cfg configs/yamls/demo.yaml \
+TRAIN.CHECKPOINT checkpoints/wham_vit_w_3dpw.pth.tar
+
+3DPW
+
+
+### Experiment 2
+Download:
+https://www.kaggle.com/datasets/kaushalbora18/penn-action-dataset/code
+
+Extract into:
+
+dataset/PennAction/
+
+Expected folders:
+
+dataset/PennAction/frames/
+dataset/PennAction/labels/
+
+Convert frames to video example:
+
+mkdir -p dataset/PennAction/videos
+
+ffmpeg -y -framerate 30 \
+-i dataset/PennAction/frames/0522/%06d.jpg \
+-c:v libx264 -pix_fmt yuv420p \
+dataset/PennAction/videos/0522.mp4
+python demo.py \
+--video dataset/PennAction/videos/0522.mp4 \
+--output_pth output/experiment2_penn_action/0522 \
+--visualize
+
+Summary of Results
+Experiment 1
+
+Successfully reproduced benchmark-quality results on:
+
+EMDB Split 1
+EMDB Split 2
+RICH
+3DPW
+Experiment 2
+
+WHAM successfully generated 3D reconstructions on unseen Penn Action videos including:
+
+baseball pitch, bowling, walking, sports actions
 
 ## Experiment 1 Results
-### Successfully Reproduced
-- Official demo execution
-- Human mesh reconstruction from monocular video
-- Drone camera example
-- Custom unseen video testing
-- Output video generation
-
-## Result Samples
 
 ### Official Example
 ![Preview](results/img9732_output.png)  
@@ -170,22 +193,31 @@ export PYTHONPATH=/content/WHAM/third-party/ViTPose:/content/WHAM
 | World-grounded DPVO Mode | Yes       | Partial    |
 | Local Coordinate Mode    | Yes       | Yes        |
 
-Experiment 1: 3DPW Benchmark Evaluation
+### 3DPW Dataset Benchmark Evaluation Results
 We evaluated the WHAM model on the 3DPW dataset using the official parsed evaluation data.
-### Results
 
-| Metric    | Your Result | Paper Result | Unit   |
+| Metric   | Our Result | Paper Result | Unit   |
 |----------|------------|--------------|--------|
 | PA-MPJPE | 36.31      | 35.90        | mm     |
 | MPJPE    | 61.11      | 57.80        | mm     |
 | PVE      | 70.31      | 68.70        | mm     |
 | ACCEL    | 6.58       | 6.60         | m/s²   |
 
+### RICH Dataset Benchmark Evaluation Results
+We evaluated the pretrained WHAM model on the RICH benchmark dataset using the official evaluation script provided in the WHAM repository.
+
+| Metric   | Paper Result – (ViT) | Our Result     |
+| -------- |----------------------|----------------|
+| PA-MPJPE |                44.3  | 44.3117        |
+| MPJPE    |                80.0  | 80.0457        |
+| PVE      |                91.2  | 91.1682        |
+| Accel    |                5.3   | 5.2933         |
+
+### EMDB Results
+
+
 
 ### Analysis of Results
-
-The reproduced results are very close to the values reported in the original WHAM paper, indicating that the implementation and evaluation pipeline were set up correctly. The model demonstrates accurate 3D pose estimation (low MPJPE and PVE) and smooth motion reconstruction (low ACCEL). Overall, this confirms successful reproduction of WHAM’s performance on the 3DPW dataset.
-
 
 
 ### Challenges Faced During Reproduction
@@ -197,7 +229,7 @@ The original environment was not directly portable, so several issues were solve
 - MMCV installation mismatches
 - Matplotlib backend errors
 - Missing FFMPEG writer plugin
-- DPVO dependency limitations# WHAM: Reconstructing World-grounded Humans with Accurate 3D Motion
+- DPVO dependency limitations
 
 # WHAM: Reconstructing World-grounded Humans with Accurate 3D Motion
 
