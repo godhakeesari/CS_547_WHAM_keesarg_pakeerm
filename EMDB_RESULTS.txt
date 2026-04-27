@@ -1,0 +1,14 @@
+EMDB-2 DATASET RESULTS
+
+
+| Metric     | Value    |
+|------------|----------|
+| PA-MPJPE   | 36.9545  |
+| MPJPE      | 58.2450  |
+| PVE        | 69.8425  |
+| ACCEL      | 5.0860   |
+| WA-MPJPE   | 132.5498 |
+| W-MPJPE    | 337.7245 |
+| RTE        | 3.8174   |
+| JITTER     | 22.4678  |
+| FS         | 5.2365   |
