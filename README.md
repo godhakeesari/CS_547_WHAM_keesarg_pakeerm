@@ -1,8 +1,3 @@
-Here's the cleaned-up README you can copy and paste directly:
-
----
-
-```markdown
 # CS_547_WHAM_keesarg_pakeerm
 
 This repository is a **fork created for the CS 547 Final Research Project at SUNY Polytechnic Institute**, based on the official WHAM repository.
@@ -188,7 +183,7 @@ python demo.py \
 | Official Demo            | Yes       | Yes        |
 | Human Reconstruction     | Yes       | Yes        |
 | New Custom Video         | Not Shown | Yes        |
-| World-grounded DPVO Mode | Yes       | Partial    |
+| World-grounded DPVO Mode | Yes       | Yes    |
 | Local Coordinate Mode    | Yes       | Yes        |
 
 ---
