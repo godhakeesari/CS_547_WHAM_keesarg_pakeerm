@@ -1,0 +1,5 @@
+Evaluation on RICH, 
+PA_MPJPE: 44.3117, 
+MPJPE: 80.0457, 
+PVE: 91.1682, 
+ACCEL: 5.2933,

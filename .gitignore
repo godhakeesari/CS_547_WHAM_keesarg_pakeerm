@@ -1,0 +1,10 @@
+dataset/
+datasets_used/
+checkpoints/
+*.avi
+*.pth
+*.pt
+*.ckpt
+*.zip
+__pycache__/
+.ipynb_checkpoints/

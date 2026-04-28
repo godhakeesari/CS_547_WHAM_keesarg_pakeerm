@@ -1,10 +1,15 @@
+Here's the cleaned-up README you can copy and paste directly:
+
+---
+
+```markdown
 # CS_547_WHAM_keesarg_pakeerm
 
-This repository is a **fork created for the CS 547 Final Research Project at SUNY Polytechnic Institute** based on the official WHAM repository.
+This repository is a **fork created for the CS 547 Final Research Project at SUNY Polytechnic Institute**, based on the official WHAM repository.
 
-Original Repository: https://github.com/yohanshin/WHAM  
-Paper: **WHAM: Reconstructing World-grounded Humans with Accurate 3D Motion** (CVPR 2024)  
-https://arxiv.org/abs/2312.07531
+- **Original Repository:** https://github.com/yohanshin/WHAM
+- **Paper:** WHAM: Reconstructing World-grounded Humans with Accurate 3D Motion (CVPR 2024)
+- **arXiv:** https://arxiv.org/abs/2312.07531
 
 ---
 
@@ -34,7 +39,7 @@ This repository is used for:
 
 ---
 
-## Brief Modifications Made to Original Repository
+## Modifications Made to Original Repository
 
 The following practical changes were made for this CS 547 project:
 
@@ -42,42 +47,20 @@ The following practical changes were made for this CS 547 project:
 - Added Linux GPU setup for benchmark evaluation
 - Added experiment scripts and benchmark notes
 - Added Penn Action dataset workflow
-- Added project documentation and results 
+- Added project documentation and results
 
-### Environment Rebuilt From Scratch
-
-The original WHAM Colab environment was not directly reproducible in the current runtime, so a clean custom environment was created manually.
-
-No core WHAM model source code was modified for Experiment 
----
-
-## Environment Setup
-
-### Colab Demo Runs
-
-Used for demo inference in **local-coordinate mode (without DPVO)**.
-
-#### Recommended Setup
-
-Tesla T4, Google Colab, Linux
-
-Python: 3.9, PyTorch: 1.11, CUDA: 11.3, NumPy: 1.23.5
-
-### Benchmark Runs + DPVO
-
-Used Linux workstation with NVIDIA GPU for EMDB / RICH evaluations.
-
-### Recommended Setup
-
-Python 3.9, CUDA GPU, Conda environment
+> **Note:** The original WHAM Colab environment was not directly reproducible in the current runtime, so a clean custom environment was created manually.
 
 ---
 
 ## Environment Setup
 
-### A. Colab Setup: WHAM Demo / Local Coordinate Mode
+### A. Colab Setup — WHAM Demo / Local Coordinate Mode
 
-Used for demo inference without DPVO.
+Used for demo inference **without DPVO**.
+
+**Recommended:** Tesla T4, Google Colab, Linux  
+**Stack:** Python 3.9 · PyTorch 1.11 · CUDA 11.3 · NumPy 1.23.5
 
 ```bash
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -88,148 +71,199 @@ bash Miniconda3-latest-Linux-x86_64.sh -b -p /usr/local/miniconda
 export MPLBACKEND=Agg
 export PYTHONPATH=/content/WHAM/third-party/ViTPose:/content/WHAM
 
+cd /content/WHAM
+```
+
 Example run:
 
-cd /content/WHAM
-
+```bash
 /usr/local/miniconda/envs/wham/bin/python demo.py \
---video examples/IMG_9732.mov \
---visualize \
---estimate_local_only
+  --video examples/IMG_9732.mov \
+  --visualize \
+  --estimate_local_only
+```
 
-### B. Linux Workstation Setup (Benchmarks + DPVO)
-Conda
+---
+
+### B. Linux Workstation Setup — Benchmarks + DPVO
+
+**Recommended:** Python 3.9 · CUDA GPU · Conda environment
+
+```bash
 source "$HOME/miniconda3/bin/activate" wham_dpvo
 export PYTHONPATH=$PWD/third-party/DPVO:$PWD/third-party/ViTPose:$PYTHONPATH
+```
 
-## Dataset Instructions
+---
 
-#### How to Run Experiments
-#### Experiment 1
-EMDB Split 1
+## Running Experiments
 
+### Experiment 1 — Benchmark Evaluation
+
+**EMDB Split 1**
+
+```bash
 python lib/eval/evaluate_emdb.py \
--c configs/yamls/demo.yaml \
---eval-set emdb \
---eval-split 1
+  -c configs/yamls/demo.yaml \
+  --eval-set emdb \
+  --eval-split 1
+```
 
-EMDB Split 2
+**EMDB Split 2**
 
+```bash
 python lib/eval/evaluate_emdb.py \
--c configs/yamls/demo.yaml \
---eval-set emdb \
---eval-split 2
+  -c configs/yamls/demo.yaml \
+  --eval-set emdb \
+  --eval-split 2
+```
 
-RICH
+**RICH**
 
+```bash
 python -m lib.eval.evaluate_rich \
---cfg configs/yamls/demo.yaml \
-TRAIN.CHECKPOINT checkpoints/wham_vit_w_3dpw.pth.tar
+  --cfg configs/yamls/demo.yaml \
+  TRAIN.CHECKPOINT checkpoints/wham_vit_w_3dpw.pth.tar
+```
 
-3DPW
+---
 
+### Experiment 2 — Penn Action Dataset
 
-### Experiment 2
-Download:
+**Download dataset:**  
 https://www.kaggle.com/datasets/kaushalbora18/penn-action-dataset/code
 
-Extract into:
+**Extract into:**
 
+```
 dataset/PennAction/
+├── frames/
+└── labels/
+```
 
-Expected folders:
+**Convert frames to video:**
 
-dataset/PennAction/frames/
-dataset/PennAction/labels/
-
-Convert frames to video example:
-
+```bash
 mkdir -p dataset/PennAction/videos
 
 ffmpeg -y -framerate 30 \
--i dataset/PennAction/frames/0522/%06d.jpg \
--c:v libx264 -pix_fmt yuv420p \
-dataset/PennAction/videos/0522.mp4
+  -i dataset/PennAction/frames/0522/%06d.jpg \
+  -c:v libx264 -pix_fmt yuv420p \
+  dataset/PennAction/videos/0522.mp4
+```
+
+**Run inference:**
+
+```bash
 python demo.py \
---video dataset/PennAction/videos/0522.mp4 \
---output_pth output/experiment2_penn_action/0522 \
---visualize
+  --video dataset/PennAction/videos/0522.mp4 \
+  --output_pth output/experiment2_penn_action/0522 \
+  --visualize
+```
 
-Summary of Results
-Experiment 1
+---
 
-Successfully reproduced benchmark-quality results on:
+## Results
 
-EMDB Split 1
-EMDB Split 2
-RICH
-3DPW
-Experiment 2
+### Experiment 1 — Demo Outputs
 
-WHAM successfully generated 3D reconstructions on unseen Penn Action videos including:
-
-baseball pitch, bowling, walking, sports actions
-
-## Experiment 1 Results
-
-### Official Example
+**Official Example**  
 ![Preview](results/img9732_output.png)  
 [Watch Video on Google Drive](https://drive.google.com/file/d/1MCOmfWvCB_2Bg8os-Mp_kdc7wDYb85pS/view?usp=sharing)
 
-### Drone Example
+**Drone Example**  
 ![Preview](results/drone_output.png)  
 [Watch Video on Google Drive](https://drive.google.com/file/d/1OwTIs9rAV0onb9yRqv3CSU_si5qQyxNt/view?usp=sharing)
 
-### Custom Example
+**Custom Example**  
 ![Preview](results/test-3.png)  
 [Watch Video on Google Drive](https://drive.google.com/file/d/1o-ioQLW72zmaeQH6FIL6UjAB65U516rY/view?usp=sharing)
 
+---
+
 ### Comparison With Original Paper
+
 | Category                 | Paper     | Our Result |
-| ------------------------ | --------- | ---------- |
+|--------------------------|-----------|------------|
 | Official Demo            | Yes       | Yes        |
 | Human Reconstruction     | Yes       | Yes        |
 | New Custom Video         | Not Shown | Yes        |
 | World-grounded DPVO Mode | Yes       | Partial    |
 | Local Coordinate Mode    | Yes       | Yes        |
 
-### 3DPW Dataset Benchmark Evaluation Results
-We evaluated the WHAM model on the 3DPW dataset using the official parsed evaluation data.
+---
 
-| Metric   | Our Result | Paper Result | Unit   |
-|----------|------------|--------------|--------|
-| PA-MPJPE | 36.31      | 35.90        | mm     |
-| MPJPE    | 61.11      | 57.80        | mm     |
-| PVE      | 70.31      | 68.70        | mm     |
-| ACCEL    | 6.58       | 6.60         | m/s²   |
+### 3DPW Benchmark Results
 
-### RICH Dataset Benchmark Evaluation Results
-We evaluated the pretrained WHAM model on the RICH benchmark dataset using the official evaluation script provided in the WHAM repository.
+| Metric   | Paper Result | Our Result | Unit |
+|----------|-------------|------------|------|
+| PA-MPJPE | 35.90       | 36.31      | mm   |
+| MPJPE    | 57.80       | 61.11      | mm   |
+| PVE      | 68.70       | 70.31      | mm   |
+| ACCEL    | 6.60        | 6.58       | m/s² |
 
-| Metric   | Paper Result – (ViT) | Our Result     |
-| -------- |----------------------|----------------|
-| PA-MPJPE |                44.3  | 44.3117        |
-| MPJPE    |                80.0  | 80.0457        |
-| PVE      |                91.2  | 91.1682        |
-| Accel    |                5.3   | 5.2933         |
+---
 
-### EMDB Results
+### RICH Benchmark Results
 
+| Metric   | Paper Result (ViT) | Our Result |
+|----------|--------------------|------------|
+| PA-MPJPE | 44.3               | 44.3117    |
+| MPJPE    | 80.0               | 80.0457    |
+| PVE      | 91.2               | 91.1682    |
+| ACCEL    | 5.3                | 5.2933     |
 
+---
 
-### Analysis of Results
+### EMDB Split 1 Results
 
+| Metric   | Paper Result (ViT) | Our Result |
+|----------|--------------------|------------|
+| PA-MPJPE | 50.4               | 47.8979    |
+| MPJPE    | 79.7               | 76.8762    |
+| PVE      | 94.4               | 89.8635    |
+| ACCEL    | 5.3                | 5.4385     |
 
-### Challenges Faced During Reproduction
+---
 
-The original environment was not directly portable, so several issues were solved manually:
+### EMDB Split 2 Results
 
-- Conda not available in Colab by default
-- PyTorch / NumPy incompatibilities
+| Metric   | Paper Result (ViT) | Our Result |
+|----------|--------------------|------------|
+| PA-MPJPE | 36.80              | 36.95      |
+| MPJPE    | 57.90              | 58.25      |
+| PVE      | 69.50              | 69.84      |
+| ACCEL    | 5.10               | 5.09       |
+| WA-MPJPE | 132.00             | 132.55     |
+| W-MPJPE  | 336.00             | 337.72     |
+| RTE      | 3.80               | 3.82       |
+| JITTER   | 22.30              | 22.47      |
+| FS       | 5.20               | 5.24       |
+
+---
+
+### Experiment 2 — Temporal Smoothing Results (3DPW)
+
+| Metric   | Exp 1 (Baseline) | Exp 2 (Smoothed) |
+|----------|-----------------|-----------------|
+| PA-MPJPE | 36.31           | 36.56           |
+| MPJPE    | 61.11           | 61.23           |
+| PVE      | 70.31           | 70.58           |
+| ACCEL    | 6.58            | 6.52            |
+
+**Analysis:** Applying temporal smoothing introduced a minor trade-off between spatial accuracy and temporal consistency. PA-MPJPE, MPJPE, and PVE increased slightly, indicating a small reduction in pose estimation accuracy. However, ACCEL decreased from 6.58 to 6.52, reflecting smoother and less jittery motion. Experiment 1 provides slightly better pose precision; Experiment 2 produces more stable motion sequences.
+
+---
+
+## Challenges Faced During Reproduction
+
+- Conda not available in Colab by default — installed Miniconda manually
+- PyTorch / NumPy version incompatibilities
 - MMCV installation mismatches
-- Matplotlib backend errors
+- Matplotlib backend errors (resolved with `MPLBACKEND=Agg`)
 - Missing FFMPEG writer plugin
-- DPVO dependency limitations
+- DPVO dependency limitations prevented full world-grounded mode in Colab
+```
 
 # WHAM: Reconstructing World-grounded Humans with Accurate 3D Motion
 
