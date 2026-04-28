@@ -258,7 +258,7 @@ python demo.py \
 - Matplotlib backend errors (resolved with `MPLBACKEND=Agg`)
 - Missing FFMPEG writer plugin
 - DPVO dependency limitations prevented full world-grounded mode in Colab
-```
+
 
 # WHAM: Reconstructing World-grounded Humans with Accurate 3D Motion
 
